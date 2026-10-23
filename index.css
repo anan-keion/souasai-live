@@ -159,6 +159,15 @@ p {
     font-family: sans-serif;
 }
 
+/* 枠の最上部に中央ぞろえで置く見出し。下に線を引いて項目と区切る */
+.info-title {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    font-size: clamp(16px, 2.2vw, 20px);
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+
 .info-row {
     display: flex;
     align-items: baseline;
@@ -186,7 +195,7 @@ p {
 }
 
 /* スクロールで画面に入ったときの演出：見出し・本文・開催情報の枠を下からふわっと表示
-   （.is-visible は index.html の script で付ける） */
+   （.is-visible は index.js で付ける） */
 .js h2,
 .js p,
 .js .info-box {
@@ -218,7 +227,7 @@ p {
 }
 
 /* 開いたときの演出：画像 → タイトル → 情報 の順に表示。
-   画像の読み込みが終わってから始める（.loaded は下の script で付ける） */
+   画像の読み込みが終わってから始める（.loaded は index.js で付ける） */
 .js .hero-bg,
 .js .hero-title,
 .js .hero-info {
