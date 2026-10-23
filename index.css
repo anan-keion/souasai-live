@@ -1,0 +1,311 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ページ全体の背景：空のような青のグラデーション（上ほど薄く、下に行くほど暗い）。
+   ページの長さ全体にかけて変化し、一番下はフッターの上端の色（#0f3a7a）につながる */
+html {
+    min-height: 100%;
+    background: linear-gradient(to bottom, #dff2ff 0%, #9fd3f7 25%, #4a9ce8 55%, #1b5fc4 80%, #0f3a7a 100%);
+}
+
+/* ヘッダーの高さ（ここを変えると、ヘッダー・ページの余白・メインビジュアルの高さがまとめて変わる） */
+:root {
+    --header-h: 72px;
+}
+
+/* ヘッダーの高さ分だけページ全体を下げ、メインビジュアルをヘッダーの下から始める */
+body {
+    padding-top: var(--header-h);
+    /* 中身が短くてもフッターが画面の一番下に来るようにする */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+}
+
+/* 常に画面上部に固定されるヘッダー */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    height: var(--header-h);
+    padding: 0 24px;
+    background: #000;
+}
+
+/* タイトルはメインビジュアルと同じ「蒼を照らせ」の文字画像をヘッダーの高さに合わせて表示 */
+.site-title img {
+    display: block;
+    height: 44px;
+    width: auto;
+}
+
+/* トップ画面：ヘッダーを除いた画面いっぱいに写真を表示 */
+.hero {
+    position: relative;
+    height: calc(100vh - var(--header-h));
+    height: calc(100svh - var(--header-h));
+    overflow: hidden;
+}
+
+/* 写真と文字を入れる枠。文字の大きさ・位置はこの枠を基準に決める
+   （cqw / cqh = 枠の幅 / 高さの 1%） */
+.hero-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+}
+
+/* 余白なしで枠を埋め、はみ出た部分は切る。
+   縦位置 20% で人物の顔が上寄りに来るようにする */
+.hero-bg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+}
+
+/* タイトル・日時の文字画像（人物の顔にかからないよう枠の下部に配置） */
+.hero-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 3cqw;
+    padding: 8cqh 4cqw 5cqh;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
+.hero-text img {
+    display: block;
+    height: auto;
+}
+
+/* 枠の幅と高さの両方で上限を決め、どの画面サイズでも枠からはみ出さない。
+   サブタイトルは元のデザインの比率（タイトルの 78.4%）に合わせる */
+.hero-title .title-main {
+    width: 48vw;  /* cqw 非対応の古いブラウザ用 */
+    width: min(48cqw, 100cqh, 900px);
+}
+
+.hero-title .title-sub {
+    width: 37.6vw;
+    width: min(37.6cqw, 78.4cqh, 706px);
+    margin-bottom: 2.5%;
+}
+
+.hero-info img {
+    width: 24vw;
+    width: min(24cqw, 55cqh, 450px);
+}
+
+/* セクション見出し（共通）：中央ぞろえ。空の背景の上でも読めるよう白文字に影を付ける */
+h2 {
+    padding: 64px 16px 24px;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: clamp(40px, 7vw, 68px);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(10, 40, 90, 0.5);
+    scroll-margin-top: var(--header-h);  /* リンクで飛んだとき固定ヘッダーに隠れないように */
+}
+
+/* 見出しの下に小さく添える日本語（<h2>About<span class="h2-ja">開催情報</span></h2>） */
+.h2-ja {
+    display: block;
+    margin-top: 4px;
+    font-size: max(14px, 0.3em);  /* 見出しの大きさの 30%（最小 14px）で、見出しに合わせて変わる */
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    opacity: 0.9;
+}
+
+/* 本文（共通）：見出しに合わせて中央ぞろえ・白文字 */
+p {
+    padding: 0 16px;
+    color: #fff;
+    font-family: sans-serif;
+    /* 一番長い行（約21文字＋余裕）が画面幅に収まる大きさにする（13px〜20px） */
+    font-size: clamp(13px, calc((100vw - 32px) / 22), 20px);
+    line-height: 1.9;
+    word-break: auto-phrase;  /* それでも収まらないときは文節の切れ目で折り返す */
+    text-align: center;
+    text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);
+}
+
+/* 開催情報の枠（場所・日付・時間）：半透明の紺の枠に、項目名と内容を横に並べる */
+.info-box {
+    width: min(100% - 32px, 480px);
+    margin: 32px auto 0;
+    padding: 8px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    background: rgba(10, 40, 90, 0.35);
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.info-row {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 14px 0;
+}
+
+/* 項目の間に細い区切り線 */
+.info-row + .info-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.info-row dt {
+    flex-shrink: 0;
+    width: 3.5em;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    opacity: 0.85;
+}
+
+.info-row dd {
+    font-size: clamp(17px, 2.4vw, 22px);
+    font-weight: bold;
+}
+
+/* スクロールで画面に入ったときの演出：見出しと開催情報の枠を下からふわっと表示
+   （.is-visible は index.html の script で付ける） */
+.js h2,
+.js .info-box {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.js h2.is-visible,
+.js .info-box.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* フッター：夜空のグラデーションの中央にタイトルの文字画像 */
+.site-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;  /* 中身が短いときは残りの余白を埋めて一番下に置く */
+    padding: 28px 16px;
+    background: linear-gradient(#0f3a7a, #050d1f);  /* 空 → 夜空 */
+}
+
+.site-footer img {
+    display: block;
+    width: min(40vw, 180px);
+    height: auto;
+}
+
+/* 開いたときの演出：画像 → タイトル → 情報 の順に表示。
+   画像の読み込みが終わってから始める（.loaded は下の script で付ける） */
+.js .hero-bg,
+.js .hero-title,
+.js .hero-info {
+    opacity: 0;
+}
+
+.loaded .hero-bg {
+    animation: fade-in 1s ease-out forwards;
+}
+
+.loaded .hero-title {
+    animation: fade-up 0.8s ease-out 0.9s forwards;
+}
+
+.loaded .hero-info {
+    animation: fade-up 0.8s ease-out 1.6s forwards;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* 動きを減らす設定の端末では、演出なしですぐ表示 */
+@media (prefers-reduced-motion: reduce) {
+    .loaded .hero-bg,
+    .loaded .hero-title,
+    .loaded .hero-info {
+        animation: none;
+        opacity: 1;
+    }
+
+    .js h2,
+    .js .info-box {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* 縦長画面（スマホ）では写真を画面いっぱいにすると左右の人物が切れるので、
+   写真は横幅いっぱいに切らずにページの一番上に置き、文字はその写真の中に重ねる。
+   画面の高さには合わせず、続くコンテンツは写真のすぐ下から始まる */
+@media (orientation: portrait) {
+    :root {
+        --header-h: 60px;
+    }
+
+    .site-header {
+        padding: 0 16px;
+    }
+
+    .site-title img {
+        height: 36px;
+    }
+
+    .hero {
+        height: auto;
+    }
+
+    /* 写真と同じ縦横比の枠 */
+    .hero-frame {
+        height: auto;
+        aspect-ratio: 2000 / 1966;
+    }
+
+    /* 枠が小さいのでタイトルと情報を縦に並べ、大きく表示する */
+    .hero-text {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2cqw;
+        padding: 8cqw 4cqw 4cqw;
+    }
+
+    .hero-title .title-main {
+        width: 72cqw;
+    }
+
+    .hero-title .title-sub {
+        width: 56.4cqw;
+    }
+
+    .hero-info img {
+        width: 40cqw;
+        margin-left: auto;
+    }
+}
