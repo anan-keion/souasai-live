@@ -185,9 +185,10 @@ p {
     font-weight: bold;
 }
 
-/* スクロールで画面に入ったときの演出：見出しと開催情報の枠を下からふわっと表示
+/* スクロールで画面に入ったときの演出：見出し・本文・開催情報の枠を下からふわっと表示
    （.is-visible は index.html の script で付ける） */
 .js h2,
+.js p,
 .js .info-box {
     opacity: 0;
     transform: translateY(32px);
@@ -195,6 +196,7 @@ p {
 }
 
 .js h2.is-visible,
+.js p.is-visible,
 .js .info-box.is-visible {
     opacity: 1;
     transform: none;
@@ -255,6 +257,7 @@ p {
     }
 
     .js h2,
+    .js p,
     .js .info-box {
         opacity: 1;
         transform: none;

@@ -6,32 +6,7 @@
         <title>蒼阿祭ライブ2026 "蒼を照らせ"</title>
         <link rel="icon" href="favicon.ico" sizes="any">
         <link rel="icon" href="images/favicon.png" type="image/png">
-        <script>
-            // JavaScript が動くときだけ演出用に最初は隠す（動かない環境では普通に表示）
-            document.documentElement.classList.add("js");
-            window.addEventListener("load", function () {
-                document.documentElement.classList.add("loaded");
-            });
-
-            // 見出しと開催情報の枠は、スクロールして画面に入ったときに表示する
-            document.addEventListener("DOMContentLoaded", function () {
-                var targets = document.querySelectorAll("h2, .info-box");
-                if (!("IntersectionObserver" in window)) {
-                    // 古いブラウザでは演出なしで全部表示
-                    targets.forEach(function (el) { el.classList.add("is-visible"); });
-                    return;
-                }
-                var observer = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("is-visible");
-                            observer.unobserve(entry.target);  // 一度表示したらそのまま
-                        }
-                    });
-                }, { threshold: 0.2 });
-                targets.forEach(function (el) { observer.observe(el); });
-            });
-        </script>
+        <script src="index.js"></script>
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
@@ -65,15 +40,15 @@
         <dl class="info-box">
             <div class="info-row">
                 <dt>場所</dt>
-                <dd>1-1HR</dd>
+                <dd>1年1組教室</dd>
             </div>
             <div class="info-row">
                 <dt>日付</dt>
-                <dd>2026年11月7日（土）</dd>
+                <dd>2026年11月7日 (土)</dd>
             </div>
             <div class="info-row">
                 <dt>時間</dt>
-                <dd>9:00 開演</dd>
+                <dd>9:00 開場/開演 ～ 17:00 終演(予定)</dd>
             </div>
         </dl>
 
