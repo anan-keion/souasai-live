@@ -147,6 +147,23 @@ p {
     text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);
 }
 
+/* 本文中のリンク：青い背景でも読めるよう、明るい黄色＋下線 */
+p a {
+    color: #fff3a0;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+p a:hover {
+    color: #fff;
+}
+
+/* 注記（※〜）：本文より小さめ。上の要素（開催情報の枠など）との間を空ける */
+p.note {
+    margin-top: 24px;
+    font-size: clamp(12px, 3.2vw, 15px);
+}
+
 /* 開催情報の枠（場所・日付・時間）：半透明の紺の枠に、項目名と内容を横に並べる */
 .info-box {
     width: min(100% - 32px, 480px);
