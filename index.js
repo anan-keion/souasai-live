@@ -8,7 +8,7 @@ window.addEventListener("load", function () {
 // 狭い画面ではメインビジュアルと同じ画面に入ることがあるので、
 // メインビジュアルの演出（写真 → タイトル → 情報）が終わってから監視を始める
 window.addEventListener("load", function () {
-    var targets = document.querySelectorAll("h2, p, .info-box");
+    var targets = document.querySelectorAll("h2, p, .info-box, .lineup-item");
     if (!("IntersectionObserver" in window)) {
         // 古いブラウザでは演出なしで全部表示
         targets.forEach(function (el) { el.classList.add("is-visible"); });

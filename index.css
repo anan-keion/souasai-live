@@ -238,11 +238,69 @@ p.note {
     font-weight: bold;
 }
 
+/* 出演者のタイムテーブル：枠なしの一覧。
+   各行は通し番号・時間を左、バンド名・紹介文を右に並べ、行の間を細い線で区切る */
+.lineup {
+    width: min(100% - 32px, 640px);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    counter-reset: lineup;  /* 通し番号を 0 から数え始める */
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);  /* 背景の青の上でも読めるように */
+    font-family: sans-serif;
+}
+
+.lineup-item {
+    counter-increment: lineup;  /* 出演者ごとに通し番号を 1 ずつ増やす */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    align-items: start;
+    padding: 14px 0;
+}
+
+/* 行と行の間の区切り線 */
+.lineup-item + .lineup-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* 左の列：通し番号（01, 02 …）の下に出演時間 */
+.lineup-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 3.5em;
+    font-size: clamp(14px, 2vw, 16px);
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.lineup-time::before {
+    content: "#" counter(lineup, decimal-leading-zero);
+    font-size: 2em;
+    line-height: 1.1;
+    color: #fff3a0;
+}
+
+.lineup-name {
+    font-size: clamp(18px, 3vw, 24px);
+    line-height: 1.4;
+}
+
+.lineup-text {
+    margin-top: 4px;
+    font-size: clamp(13px, 2vw, 15px);
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
 /* スクロールで画面に入ったときの演出：見出し・本文・開催情報の枠を下からふわっと表示
    （.is-visible は index.js で付ける） */
 .js h2,
 .js p,
-.js .info-box {
+.js .info-box,
+.js .lineup-item {
     opacity: 0;
     transform: translateY(32px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -250,7 +308,8 @@ p.note {
 
 .js h2.is-visible,
 .js p.is-visible,
-.js .info-box.is-visible {
+.js .info-box.is-visible,
+.js .lineup-item.is-visible {
     opacity: 1;
     transform: none;
 }
@@ -311,7 +370,8 @@ p.note {
 
     .js h2,
     .js p,
-    .js .info-box {
+    .js .info-box,
+    .js .lineup-item {
         opacity: 1;
         transform: none;
         transition: none;
