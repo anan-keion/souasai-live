@@ -261,8 +261,26 @@ p.note {
 }
 
 /* 行と行の間の区切り線 */
-.lineup-item + .lineup-item {
+.lineup-item + .lineup-item,
+.lineup-item + .lineup-break,
+.lineup-break + .lineup-item {
     border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* 時間調整などの行：通し番号を数えず、控えめに表示 */
+.lineup-break {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    align-items: center;
+    padding: 10px 0;
+    font-size: clamp(13px, 2vw, 15px);
+    opacity: 0.7;
+}
+
+/* 時間調整の行には通し番号を表示しない */
+.lineup-break .lineup-time::before {
+    content: none;
 }
 
 /* 左の列：通し番号（01, 02 …）の下に出演時間 */
@@ -270,8 +288,9 @@ p.note {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 3.5em;
-    font-size: clamp(14px, 2vw, 16px);
+    width: 6.5em;  /* 幅をそろえて、どの行もバンド名の位置を同じにする */
+    font-size: clamp(12px, 2vw, 15px);
+    white-space: nowrap;
     font-weight: bold;
     opacity: 0.9;
 }
@@ -300,7 +319,8 @@ p.note {
 .js h2,
 .js p,
 .js .info-box,
-.js .lineup-item {
+.js .lineup-item,
+.js .lineup-break {
     opacity: 0;
     transform: translateY(32px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -309,7 +329,8 @@ p.note {
 .js h2.is-visible,
 .js p.is-visible,
 .js .info-box.is-visible,
-.js .lineup-item.is-visible {
+.js .lineup-item.is-visible,
+.js .lineup-break.is-visible {
     opacity: 1;
     transform: none;
 }
@@ -371,7 +392,8 @@ p.note {
     .js h2,
     .js p,
     .js .info-box,
-    .js .lineup-item {
+    .js .lineup-item,
+    .js .lineup-break {
         opacity: 1;
         transform: none;
         transition: none;
