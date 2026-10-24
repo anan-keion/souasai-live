@@ -340,9 +340,9 @@ p.note {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 24px;  /* ロゴ・リンク・著作権表示の間隔 */
     margin-top: auto;  /* 中身が短いときは残りの余白を埋めて一番下に置く */
-    padding: 48px 16px;  /* 上下の余白でフッターの高さが決まる */
+    padding: 56px 16px 48px;  /* 上下の余白でフッターの高さが決まる */
     background: linear-gradient(#0f3a7a, #050d1f);  /* 空 → 夜空 */
 }
 
