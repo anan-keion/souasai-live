@@ -11,14 +11,12 @@ html {
     background: linear-gradient(to bottom, #dff2ff 0%, #9fd3f7 25%, #4a9ce8 55%, #1b5fc4 80%, #0f3a7a 100%);
 }
 
-/* ヘッダーの高さ（ここを変えると、ヘッダー・ページの余白・メインビジュアルの高さがまとめて変わる） */
+/* ヘッダーの高さ（ここを変えると、ヘッダーと、見出しへ飛んだときの余白がまとめて変わる） */
 :root {
     --header-h: 72px;
 }
 
-/* ヘッダーの高さ分だけページ全体を下げ、メインビジュアルをヘッダーの下から始める */
 body {
-    padding-top: var(--header-h);
     /* 中身が短くてもフッターが画面の一番下に来るようにする */
     display: flex;
     flex-direction: column;
@@ -34,10 +32,27 @@ body {
     right: 0;
     z-index: 100;
     display: flex;
-    align-items: center;
+    justify-content: space-between;  /* タイトルを左端、サブタイトルを右端に */
+    align-items: center;             /* どちらもヘッダーの上下中央に */
+    gap: 16px;
     height: var(--header-h);
     padding: 0 24px;
-    background: #000;
+    background: #081428;                  /* 黒に近い紺 */
+    border-bottom: 2px solid #4fc3ff;     /* 写真との境目に水色の線 */
+}
+
+/* 開いたときはヘッダーを画面の上に隠しておき、メインビジュアルより下へ
+   スクロールしたら上から滑り込ませる（.is-shown は index.js で付ける） */
+.js .site-header {
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.35s ease-out, visibility 0s linear 0.35s;
+}
+
+.js .site-header.is-shown {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.35s ease-out, visibility 0s;
 }
 
 /* タイトルはメインビジュアルと同じ「蒼を照らせ」の文字画像をヘッダーの高さに合わせて表示 */
@@ -47,11 +62,30 @@ body {
     width: auto;
 }
 
-/* トップ画面：ヘッダーを除いた画面いっぱいに写真を表示 */
+/* ヘッダー右側のサブタイトル（K-ON School Fes. LIVE 2026）。
+   狭い画面では残りの幅に合わせて縮める（縦横比は保ち、上下中央のまま） */
+.header-sub {
+    display: block;
+    flex: 0 1 auto;
+    min-width: 0;
+    height: 18px;
+    width: auto;
+    object-fit: contain;
+    object-position: right center;
+}
+
+/* とても狭い画面ではサブタイトルが読めない大きさになるので表示しない */
+@media (max-width: 359px) {
+    .header-sub {
+        display: none;
+    }
+}
+
+/* トップ画面：画面いっぱいに写真を表示（開いたときはヘッダーを出さない） */
 .hero {
     position: relative;
-    height: calc(100vh - var(--header-h));
-    height: calc(100svh - var(--header-h));
+    height: 100vh;
+    height: 100svh;
     overflow: hidden;
 }
 
@@ -360,6 +394,7 @@ p.note {
     margin-top: auto;  /* 中身が短いときは残りの余白を埋めて一番下に置く */
     padding: 56px 16px 48px;  /* 上下の余白でフッターの高さが決まる */
     background: linear-gradient(#0f3a7a, #050d1f);  /* 空 → 夜空 */
+    border-top: 2px solid #4fc3ff;  /* ヘッダーの下の線とそろえる */
 }
 
 .site-footer img {
@@ -466,6 +501,10 @@ p.note {
 
     .site-title img {
         height: 36px;
+    }
+
+    .header-sub {
+        height: 13px;
     }
 
     .hero {

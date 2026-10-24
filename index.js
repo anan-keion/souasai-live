@@ -4,6 +4,19 @@ window.addEventListener("load", function () {
     document.documentElement.classList.add("loaded");
 });
 
+// ヘッダーは、メインビジュアルが画面から完全に出たら表示し、戻ったら隠す
+document.addEventListener("DOMContentLoaded", function () {
+    var header = document.querySelector(".site-header");
+    var hero = document.querySelector(".hero");
+    if (!("IntersectionObserver" in window)) {
+        header.classList.add("is-shown");  // 古いブラウザでは常に表示
+        return;
+    }
+    new IntersectionObserver(function (entries) {
+        header.classList.toggle("is-shown", !entries[0].isIntersecting);
+    }).observe(hero);
+});
+
 // 見出し・本文・開催情報の枠は、スクロールして画面に入ったときに表示する。
 // 狭い画面ではメインビジュアルと同じ画面に入ることがあるので、
 // メインビジュアルの演出（写真 → タイトル → 情報）が終わってから監視を始める
