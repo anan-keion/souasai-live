@@ -162,6 +162,22 @@ p {
     text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);
 }
 
+mark {
+    padding: 0 0.1em;
+    background: linear-gradient(transparent 55%, rgba(79, 195, 255, 0.75) 55%) no-repeat left / 100% 100%;
+    color: inherit;
+    font-weight: bold;
+}
+
+.js mark {
+    background-size: 0% 100%;
+    transition: background-size 0.8s ease-out 0.9s;
+}
+
+.js .is-visible mark {
+    background-size: 100% 100%;
+}
+
 p a {
     color: #fff3a0;
     text-decoration: underline;
@@ -445,6 +461,11 @@ p.note {
     .js .lineup-break {
         opacity: 1;
         transform: none;
+        transition: none;
+    }
+
+    .js mark {
+        background-size: 100% 100%;
         transition: none;
     }
 }
