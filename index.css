@@ -4,27 +4,23 @@
     box-sizing: border-box;
 }
 
-/* ページ全体の背景：空のような青のグラデーション（上ほど薄く、下に行くほど暗い）。
-   ページの長さ全体にかけて変化し、一番下はフッターの上端の色（#0f3a7a）につながる */
 html {
     min-height: 100%;
     background: linear-gradient(to bottom, #dff2ff 0%, #9fd3f7 25%, #4a9ce8 55%, #1b5fc4 80%, #0f3a7a 100%);
 }
 
-/* ヘッダーの高さ（ここを変えると、ヘッダーと、見出しへ飛んだときの余白がまとめて変わる） */
 :root {
     --header-h: 72px;
 }
 
 body {
-    /* 中身が短くてもフッターが画面の一番下に来るようにする */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     min-height: 100svh;
 }
 
-/* 常に画面上部に固定されるヘッダー */
+/* ヘッダー */
 .site-header {
     position: fixed;
     top: 0;
@@ -32,17 +28,16 @@ body {
     right: 0;
     z-index: 100;
     display: flex;
-    justify-content: space-between;  /* タイトルを左端、サブタイトルを右端に */
-    align-items: center;             /* どちらもヘッダーの上下中央に */
+    justify-content: space-between;
+    align-items: center;
     gap: 16px;
     height: var(--header-h);
     padding: 0 24px;
-    background: #081428;                  /* 黒に近い紺 */
-    border-bottom: 2px solid #4fc3ff;     /* 写真との境目に水色の線 */
+    background: #081428;
+    border-bottom: 2px solid #4fc3ff;
 }
 
-/* 開いたときはヘッダーを画面の上に隠しておき、メインビジュアルより下へ
-   スクロールしたら上から滑り込ませる（.is-shown は index.js で付ける） */
+/* メインビジュアルを過ぎたら表示（index.js） */
 .js .site-header {
     transform: translateY(-100%);
     visibility: hidden;
@@ -55,15 +50,12 @@ body {
     transition: transform 0.35s ease-out, visibility 0s;
 }
 
-/* タイトルはメインビジュアルと同じ「蒼を照らせ」の文字画像をヘッダーの高さに合わせて表示 */
 .site-title img {
     display: block;
     height: 44px;
     width: auto;
 }
 
-/* ヘッダー右側のサブタイトル（K-ON School Fes. LIVE 2026）。
-   狭い画面では残りの幅に合わせて縮める（縦横比は保ち、上下中央のまま） */
 .header-sub {
     display: block;
     flex: 0 1 auto;
@@ -74,14 +66,13 @@ body {
     object-position: right center;
 }
 
-/* とても狭い画面ではサブタイトルが読めない大きさになるので表示しない */
 @media (max-width: 359px) {
     .header-sub {
         display: none;
     }
 }
 
-/* トップ画面：画面いっぱいに写真を表示（開いたときはヘッダーを出さない） */
+/* メインビジュアル */
 .hero {
     position: relative;
     height: 100vh;
@@ -89,8 +80,6 @@ body {
     overflow: hidden;
 }
 
-/* 写真と文字を入れる枠。文字の大きさ・位置はこの枠を基準に決める
-   （cqw / cqh = 枠の幅 / 高さの 1%） */
 .hero-frame {
     position: relative;
     width: 100%;
@@ -98,8 +87,6 @@ body {
     container-type: size;
 }
 
-/* 余白なしで枠を埋め、はみ出た部分は切る。
-   縦位置 20% で人物の顔が上寄りに来るようにする */
 .hero-bg {
     display: block;
     width: 100%;
@@ -108,7 +95,6 @@ body {
     object-position: center 20%;
 }
 
-/* タイトル・日時の文字画像（人物の顔にかからないよう枠の下部に配置） */
 .hero-text {
     position: absolute;
     left: 0;
@@ -127,10 +113,8 @@ body {
     height: auto;
 }
 
-/* 枠の幅と高さの両方で上限を決め、どの画面サイズでも枠からはみ出さない。
-   サブタイトルは元のデザインの比率（タイトルの 78.4%）に合わせる */
 .hero-title .title-main {
-    width: 48vw;  /* cqw 非対応の古いブラウザ用 */
+    width: 48vw;  /* 古いブラウザ用 */
     width: min(48cqw, 100cqh, 900px);
 }
 
@@ -145,7 +129,7 @@ body {
     width: min(24cqw, 55cqh, 450px);
 }
 
-/* セクション見出し（共通）：中央ぞろえ。空の背景の上でも読めるよう白文字に影を付ける */
+/* 見出し・本文 */
 h2 {
     padding: 64px 16px 24px;
     color: #fff;
@@ -155,33 +139,29 @@ h2 {
     letter-spacing: 0.08em;
     text-align: center;
     text-shadow: 0 2px 8px rgba(10, 40, 90, 0.5);
-    scroll-margin-top: var(--header-h);  /* リンクで飛んだとき固定ヘッダーに隠れないように */
+    scroll-margin-top: var(--header-h);
 }
 
-/* 見出しの下に小さく添える日本語（<h2>About<span class="h2-ja">開催情報</span></h2>） */
 .h2-ja {
     display: block;
     margin-top: 4px;
-    font-size: max(14px, 0.3em);  /* 見出しの大きさの 30%（最小 14px）で、見出しに合わせて変わる */
+    font-size: max(14px, 0.3em);
     font-weight: bold;
     letter-spacing: 0.2em;
     opacity: 0.9;
 }
 
-/* 本文（共通）：見出しに合わせて中央ぞろえ・白文字 */
 p {
     padding: 0 16px;
     color: #fff;
     font-family: sans-serif;
-    /* 一番長い行（約21文字＋余裕）が画面幅に収まる大きさにする（13px〜20px） */
     font-size: clamp(13px, calc((100vw - 32px) / 22), 20px);
     line-height: 1.9;
-    word-break: auto-phrase;  /* それでも収まらないときは文節の切れ目で折り返す */
+    word-break: auto-phrase;
     text-align: center;
     text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);
 }
 
-/* 本文中のリンク：青い背景でも読めるよう、明るい黄色＋下線 */
 p a {
     color: #fff3a0;
     text-decoration: underline;
@@ -192,29 +172,27 @@ p a:hover {
     color: #fff;
 }
 
-/* 注記（※〜）：本文より小さめ。上の要素（開催情報の枠など）との間を空ける */
 p.note {
     margin-top: 24px;
     font-size: clamp(12px, 3.2vw, 15px);
 }
 
-/* Instagram の投稿の埋め込み：中央ぞろえ、最大幅 400px */
+/* Instagram 埋め込み */
 .insta-embed {
     width: min(100% - 32px, 400px);
-    margin: 32px auto 96px;  /* 下はフッターとの間を広めに空ける */
+    margin: 32px auto 96px;
 }
 
 .insta-embed iframe {
     display: block;
     width: 100%;
-    /* 横長の写真の投稿に合わせた高さ：上下の欄（約 215px）＋ 写真（幅の 2/3） */
     height: calc(min(100vw - 32px, 400px) * 2 / 3 + 215px);
     border: 0;
     border-radius: 8px;
     background: #fff;
 }
 
-/* 開催情報の枠（場所・日付・時間）：半透明の紺の枠に、項目名と内容を横に並べる */
+/* 開催情報 */
 .info-box {
     width: min(100% - 32px, 480px);
     margin: 32px auto 0;
@@ -224,36 +202,31 @@ p.note {
     background: rgba(10, 40, 90, 0.35);
     color: #fff;
     font-family: sans-serif;
-    container-type: inline-size;  /* 中の文字サイズを枠の幅を基準に決められるようにする */
+    container-type: inline-size;
 }
 
-/* 枠の最上部に中央ぞろえで置く見出し。下に線を引いて項目と区切る */
 .info-title {
     padding: 12px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    font-size: clamp(16px, 2.8vw, 22px);  /* cqi 非対応の古いブラウザ用 */
-    /* 基準の大きさ。英語とタイトルはこれに対する倍率で決める（最大 26px） */
+    font-size: clamp(16px, 2.8vw, 22px);  /* 古いブラウザ用 */
+
     font-size: min(7.8cqi, 26px);
     line-height: 1.5;
     text-align: center;
 }
 
-/* 英語の行は少し小さく（枠の幅に1行で収まる大きさ） */
 .info-title-en {
     display: block;
     font-size: 0.75em;
     letter-spacing: 0.06em;
 }
 
-/* タイトルはやや大きめに */
 .info-title-main {
     display: block;
     font-size: 1.35em;
     letter-spacing: 0.05em;
 }
 
-/* 枠の中のポスター画像：中央ぞろえ（幅は index.html の img の width で指定）。
-   狭い画面で小さくなりすぎないよう最小 140px */
 .info-poster {
     display: block;
     min-width: 140px;
@@ -269,7 +242,6 @@ p.note {
     padding: 14px 0;
 }
 
-/* 項目の間に細い区切り線 */
 .info-row + .info-row {
     border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
@@ -288,21 +260,20 @@ p.note {
     font-weight: bold;
 }
 
-/* 出演者のタイムテーブル：枠なしの一覧。
-   各行は通し番号・時間を左、バンド名・紹介文を右に並べ、行の間を細い線で区切る */
+/* 出演者一覧 */
 .lineup {
     width: min(100% - 32px, 640px);
-    margin: 0 auto 32px;  /* 下に余白を空けて、次のセクション（見出しの上にも 64px の余白あり）と区切る */
+    margin: 0 auto 32px;
     padding: 0;
     list-style: none;
-    counter-reset: lineup;  /* 通し番号を 0 から数え始める */
+    counter-reset: lineup;
     color: #fff;
-    text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);  /* 背景の青の上でも読めるように */
+    text-shadow: 0 1px 6px rgba(10, 40, 90, 0.6);
     font-family: sans-serif;
 }
 
 .lineup-item {
-    counter-increment: lineup;  /* 出演者ごとに通し番号を 1 ずつ増やす */
+    counter-increment: lineup;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 20px;
@@ -310,14 +281,12 @@ p.note {
     padding: 14px 0;
 }
 
-/* 行と行の間の区切り線 */
 .lineup-item + .lineup-item,
 .lineup-item + .lineup-break,
 .lineup-break + .lineup-item {
     border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-/* 時間調整などの行：通し番号を数えず、控えめに表示 */
 .lineup-break {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -328,17 +297,15 @@ p.note {
     opacity: 0.7;
 }
 
-/* 時間調整の行には通し番号を表示しない */
 .lineup-break .lineup-time::before {
     content: none;
 }
 
-/* 左の列：通し番号（01, 02 …）の下に出演時間 */
 .lineup-time {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 6.5em;  /* 幅をそろえて、どの行もバンド名の位置を同じにする */
+    width: 6.5em;
     font-size: clamp(12px, 2vw, 15px);
     white-space: nowrap;
     font-weight: bold;
@@ -364,8 +331,7 @@ p.note {
     opacity: 0.9;
 }
 
-/* スクロールで画面に入ったときの演出：見出し・本文・開催情報の枠を下からふわっと表示
-   （.is-visible は index.js で付ける） */
+/* スクロール時の表示演出（index.js） */
 .js h2,
 .js p,
 .js .info-box,
@@ -385,16 +351,16 @@ p.note {
     transform: none;
 }
 
-/* フッター：夜空のグラデーションの中央にタイトルの文字画像 */
+/* フッター */
 .site-footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;  /* ロゴ・リンク・著作権表示の間隔 */
-    margin-top: auto;  /* 中身が短いときは残りの余白を埋めて一番下に置く */
-    padding: 56px 16px 48px;  /* 上下の余白でフッターの高さが決まる */
-    background: linear-gradient(#0f3a7a, #050d1f);  /* 空 → 夜空 */
-    border-top: 2px solid #4fc3ff;  /* ヘッダーの下の線とそろえる */
+    gap: 24px;
+    margin-top: auto;
+    padding: 56px 16px 48px;
+    background: linear-gradient(#0f3a7a, #050d1f);
+    border-top: 2px solid #4fc3ff;
 }
 
 .site-footer img {
@@ -403,7 +369,6 @@ p.note {
     height: auto;
 }
 
-/* フッターの SNS リンク：横に並べ、間に「・」を入れる */
 .footer-links {
     display: flex;
     gap: 0 12px;
@@ -429,7 +394,6 @@ p.note {
     text-decoration: underline;
 }
 
-/* 著作権表示 */
 .footer-copy {
     color: rgba(255, 255, 255, 0.6);
     font-family: sans-serif;
@@ -437,8 +401,7 @@ p.note {
     letter-spacing: 0.05em;
 }
 
-/* 開いたときの演出：画像 → タイトル → 情報 の順に表示。
-   画像の読み込みが終わってから始める（.loaded は index.js で付ける） */
+/* 開いたときの演出（index.js） */
 .js .hero-bg,
 .js .hero-title,
 .js .hero-info {
@@ -467,7 +430,6 @@ p.note {
     to   { opacity: 1; transform: none; }
 }
 
-/* 動きを減らす設定の端末では、演出なしですぐ表示 */
 @media (prefers-reduced-motion: reduce) {
     .loaded .hero-bg,
     .loaded .hero-title,
@@ -487,9 +449,7 @@ p.note {
     }
 }
 
-/* 縦長画面（スマホ）では写真を画面いっぱいにすると左右の人物が切れるので、
-   写真は横幅いっぱいに切らずにページの一番上に置き、文字はその写真の中に重ねる。
-   画面の高さには合わせず、続くコンテンツは写真のすぐ下から始まる */
+/* 縦長画面（スマホ） */
 @media (orientation: portrait) {
     :root {
         --header-h: 60px;
@@ -511,13 +471,11 @@ p.note {
         height: auto;
     }
 
-    /* 写真と同じ縦横比の枠 */
     .hero-frame {
         height: auto;
         aspect-ratio: 2000 / 1966;
     }
 
-    /* 枠が小さいのでタイトルと情報を縦に並べ、大きく表示する */
     .hero-text {
         flex-direction: column;
         align-items: stretch;
