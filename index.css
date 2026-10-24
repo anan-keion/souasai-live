@@ -242,7 +242,7 @@ p.note {
    各行は通し番号・時間を左、バンド名・紹介文を右に並べ、行の間を細い線で区切る */
 .lineup {
     width: min(100% - 32px, 640px);
-    margin: 0 auto;
+    margin: 0 auto 64px;  /* 下に余白を空けて、次のセクションやフッターと区切る */
     padding: 0;
     list-style: none;
     counter-reset: lineup;  /* 通し番号を 0 から数え始める */
@@ -338,9 +338,11 @@ p.note {
 /* フッター：夜空のグラデーションの中央にタイトルの文字画像 */
 .site-footer {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     margin-top: auto;  /* 中身が短いときは残りの余白を埋めて一番下に置く */
-    padding: 28px 16px;
+    padding: 48px 16px;  /* 上下の余白でフッターの高さが決まる */
     background: linear-gradient(#0f3a7a, #050d1f);  /* 空 → 夜空 */
 }
 
@@ -348,6 +350,40 @@ p.note {
     display: block;
     width: min(40vw, 180px);
     height: auto;
+}
+
+/* フッターの SNS リンク：横に並べ、間に「・」を入れる */
+.footer-links {
+    display: flex;
+    gap: 0 12px;
+    padding: 0;
+    list-style: none;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.footer-links li + li::before {
+    content: "・";
+    margin-right: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-links a {
+    color: #bfe9ff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* 著作権表示 */
+.footer-copy {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
 }
 
 /* 開いたときの演出：画像 → タイトル → 情報 の順に表示。
