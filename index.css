@@ -164,6 +164,22 @@ p.note {
     font-size: clamp(12px, 3.2vw, 15px);
 }
 
+/* Instagram の投稿の埋め込み：中央ぞろえ、最大幅 400px */
+.insta-embed {
+    width: min(100% - 32px, 400px);
+    margin: 32px auto 96px;  /* 下はフッターとの間を広めに空ける */
+}
+
+.insta-embed iframe {
+    display: block;
+    width: 100%;
+    /* 横長の写真の投稿に合わせた高さ：上下の欄（約 215px）＋ 写真（幅の 2/3） */
+    height: calc(min(100vw - 32px, 400px) * 2 / 3 + 215px);
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+}
+
 /* 開催情報の枠（場所・日付・時間）：半透明の紺の枠に、項目名と内容を横に並べる */
 .info-box {
     width: min(100% - 32px, 480px);
@@ -242,7 +258,7 @@ p.note {
    各行は通し番号・時間を左、バンド名・紹介文を右に並べ、行の間を細い線で区切る */
 .lineup {
     width: min(100% - 32px, 640px);
-    margin: 0 auto 64px;  /* 下に余白を空けて、次のセクションやフッターと区切る */
+    margin: 0 auto 32px;  /* 下に余白を空けて、次のセクション（見出しの上にも 64px の余白あり）と区切る */
     padding: 0;
     list-style: none;
     counter-reset: lineup;  /* 通し番号を 0 から数え始める */
