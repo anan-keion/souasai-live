@@ -202,7 +202,7 @@ p.note {
 .insta-embed iframe {
     display: block;
     width: 100%;
-    height: calc(min(100vw - 32px, 400px) * 2 / 3 + 215px);
+    height: calc(min(100vw - 32px, 400px) * 5 / 4 + 215px);
     border: 0;
     border-radius: 8px;
     background: #fff;
